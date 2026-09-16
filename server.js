@@ -1,13 +1,19 @@
 import express from "express"
 
 import { bugService } from "./services/bug.service.js"
+import { loggerService } from "./services/logger.service.js"
 
 const app = express()
 app.use(express.static("public"))
 
-
 app.get("/api/bug", (req, res) => {
-  bugService.query().then((bugs) => res.send(bugs))
+  bugService
+    .query()
+    .then((bugs) => res.send(bugs))
+    .catch((err) => {
+      loggerService.error("Couldnt get cars", err)
+      res.status(400).send("Had a problem")
+    })
 })
 
 app.get("/api/bug/save", (req, res) => {
@@ -23,30 +29,20 @@ app.get("/api/bug/save", (req, res) => {
   bugService.save(bugToSave).then((savedbug) => res.send(savedbug))
 })
 
+app.get("/api/bug/:id", (req, res) => {
+  const { id: bugId } = req.params
 
-app.get('/api/bug/:id', (req, res) => {
-    const { id: bugId } = req.params
+  console.log(req.params)
 
-      console.log(req.params)
-
-	bugService.getById(bugId)
-        .then(bug => res.send(bug))
+  bugService.getById(bugId).then((bug) => res.send(bug))
 })
 
-app.get('/api/bug/:id/remove', (req, res) => {
-    const { id: bugId } = req.params
-    bugService.remove(bugId)
-        .then(() => res.send('OK'))
+app.get("/api/bug/:id/remove", (req, res) => {
+  const { id: bugId } = req.params
+  bugService.remove(bugId).then(() => res.send("OK"))
 })
 
-
-
-
-app.listen(3030, () => console.log("Server ready at port 3030"))
-
-
-
-var x ={}
-var y = JSON.parse(JSON.stringify(x))
-
-
+const port = 3030
+app.listen(port, () =>
+  loggerService.info(`Server listening on port http://127.0.0.1:${port}/`),
+)
