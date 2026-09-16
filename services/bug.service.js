@@ -9,8 +9,7 @@ export const bugService = {
 const path = './data/bug.json'
 const bugs = utilService.readJsonFile(path)
 
-function query() {
-    // return Promise.reject('bugs not available')
+function query() {    
     return Promise.resolve(bugs)
 }
 

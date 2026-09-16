@@ -5,7 +5,6 @@ import { bugService } from "./services/bug.service.js"
 const app = express()
 app.use(express.static("public"))
 
-app.get("/", (req, res) => res.send("Hi there"))
 
 app.get("/api/bug", (req, res) => {
   bugService.query().then((bugs) => res.send(bugs))
@@ -33,7 +32,6 @@ app.get('/api/bug/:id', (req, res) => {
 	bugService.getById(bugId)
         .then(bug => res.send(bug))
 })
-///*************/ doesnt show^^
 
 app.get('/api/bug/:id/remove', (req, res) => {
     const { id: bugId } = req.params
@@ -45,3 +43,10 @@ app.get('/api/bug/:id/remove', (req, res) => {
 
 
 app.listen(3030, () => console.log("Server ready at port 3030"))
+
+
+
+var x ={}
+var y = JSON.parse(JSON.stringify(x))
+
+

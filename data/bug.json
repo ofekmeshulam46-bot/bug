@@ -1,12 +1,5 @@
 [
   {
-    "_id": "abc123",
-    "title": "Cannot save a new bug",
-    "description": "problem when clicking Save",
-    "severity": 3,
-    "createdAt": 1542107359454
-  },
-  {
     "_id": "F5aHe",
     "title": "buggy",
     "description": "bug ?",
@@ -23,15 +16,22 @@
   {
     "_id": "i6pF8",
     "title": "buggy",
-    "description": "bug ?",
-    "severity": 4,
+    "description": "bug ?  ",
+    "severity": 45,
     "createdAt": 23365466
   },
   {
-    "_id": "00Iom",
-    "title": "buggy",
-    "description": "bug ?",
-    "severity": 4,
-    "createdAt": 23365467
+    "_id": "YcrMA",
+    "title": "Bug 1789567603355",
+    "description": "undefined  ",
+    "severity": 3,
+    "createdAt": null
+  },
+  {
+    "_id": "zzUl4",
+    "title": "Bug 1789567613877",
+    "description": "undefined  ",
+    "severity": 3,
+    "createdAt": null
   }
 ]
