@@ -7,11 +7,17 @@ const app = express()
 app.use(express.static("public"))
 
 app.get("/api/bug", (req, res) => {
+  const filterBy = {
+    txt: req.query.txt || "",
+    minSeverity: +req.query.minSeverity || 0,
+  }
+  console.log(req.query)
+  console.log(filterBy)
   bugService
-    .query()
+    .query(filterBy)
     .then((bugs) => res.send(bugs))
     .catch((err) => {
-      loggerService.error("Couldnt get cars", err)
+      loggerService.error("Couldnt get bugs", err)
       res.status(400).send("Had a problem")
     })
 })

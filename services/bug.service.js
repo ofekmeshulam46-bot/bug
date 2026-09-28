@@ -9,7 +9,7 @@ export const bugService = {
 const path = './data/bug.json'
 const bugs = utilService.readJsonFile(path)
 
-function query() {    
+function query(filterBy) {    
     return Promise.resolve(bugs)
 }
 
