@@ -2,17 +2,18 @@ import express from "express"
 
 import { bugService } from "./services/bug.service.js"
 import { loggerService } from "./services/logger.service.js"
+import cookieParser from "cookie-parser"
 
 const app = express()
 app.use(express.static("public"))
+app.use(cookieParser())
+app.use(express.json())
 
 app.get("/api/bug", (req, res) => {
   const filterBy = {
     txt: req.query.txt || "",
     minSeverity: +req.query.minSeverity || 0,
   }
-  console.log(req.query)
-  console.log(filterBy)
   bugService
     .query(filterBy)
     .then((bugs) => res.send(bugs))
@@ -37,7 +38,11 @@ app.get("/api/bug/save", (req, res) => {
 
 app.get("/api/bug/:id", (req, res) => {
   const { id: bugId } = req.params
+  // const visitIds = req.cookies.visitCount || []
 
+  // console.log(visitCount)
+  // if (!visitedIds.includes(bugId)) visitedIds.push(bugId)
+  // req.cookies("visitCount", +visitCount + 1)
   console.log(req.params)
 
   bugService.getById(bugId).then((bug) => res.send(bug))
