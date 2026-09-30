@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://127.0.0.1:3030/api/bug/F5aHe
+method: GET
+order: 233363242329757

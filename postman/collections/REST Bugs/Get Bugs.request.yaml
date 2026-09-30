@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://127.0.0.1:3030/api/bug
+method: GET
+queryParams:
+  - key: txt
+    value: bugg
+    disabled: true
+    description: check the box to activate the filter
+order: 1790728944244

@@ -38,11 +38,11 @@ app.get("/api/bug/save", (req, res) => {
 
 app.get("/api/bug/:id", (req, res) => {
   const { id: bugId } = req.params
-  // const visitIds = req.cookies.visitCount || []
+  const visitedIds = req.cookies.visitedIds || []
 
-  // console.log(visitCount)
-  // if (!visitedIds.includes(bugId)) visitedIds.push(bugId)
-  // req.cookies("visitCount", +visitCount + 1)
+  console.log(visitedIds)
+  if (!visitedIds.includes(bugId)) visitedIds.push(bugId)
+  res.cookie("visitedIds", visitedIds)
   console.log(req.params)
 
   bugService.getById(bugId).then((bug) => res.send(bug))
