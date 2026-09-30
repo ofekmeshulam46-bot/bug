@@ -36,16 +36,17 @@ function remove(bugId) {
   return _savebugs()
 }
 
-function save(bugToSave) {
-  if (bugToSave._id) {
-    const idx = bugs.findIndex((bug) => bug._id === bugToSave._id)
-    bugs.splice(idx, 1, bugToSave)
+function save(bug) {
+  if (bug._id) {
+    const idx = bugs.findIndex((bug) => bug._id === bug._id)
+    if (idx === -1) return Promise.reject("Bug not found")
+    bugs[idx] = { ...bugs[idx], ...bug }
   } else {
-    bugToSave._id = utilService.makeId()
-    bugs.push(bugToSave)
+    bug._id = utilService.makeId()
+    bugs.push(bug)
   }
 
-  return _savebugs().then(() => bugToSave)
+  return _savebugs().then(() => bug)
 }
 
 function _savebugs() {

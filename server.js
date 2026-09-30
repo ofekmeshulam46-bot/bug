@@ -23,32 +23,45 @@ app.get("/api/bug", (req, res) => {
     })
 })
 
-app.get("/api/bug/save", (req, res) => {
-  const { id: _id, title, description, severity, createdAt } = req.query
-  const bugToSave = {
-    _id,
-    title,
-    description,
-    severity: +severity,
-    createdAt: +createdAt,
-  }
-  console.log(req.query)
-  bugService.save(bugToSave).then((savedbug) => res.send(savedbug))
-})
-
 app.get("/api/bug/:id", (req, res) => {
   const { id: bugId } = req.params
   const visitedIds = req.cookies.visitedIds || []
-
-  console.log(visitedIds)
-  if (!visitedIds.includes(bugId)) visitedIds.push(bugId)
-  res.cookie("visitedIds", visitedIds)
-  console.log(req.params)
+  if (!visitedIds.includes(bugId)) {
+    if (visitedIds.length === 3) {
+      console.log('reached limit, wait')
+      return res.status(401).send("wait 7 seconds")
+    } else {
+      visitedIds.push(bugId)
+      console.log(visitedIds)
+    }
+  }
+  res.cookie("visitedIds", visitedIds, { maxAge: 1000 * 7 })
 
   bugService.getById(bugId).then((bug) => res.send(bug))
 })
 
-app.get("/api/bug/:id/remove", (req, res) => {
+app.post("/api/bug", (req, res) => {
+  const bug = {
+    title: req.body.title,
+    description: req.body.description,
+    severity: req.body.severity,
+    createdAt: req.body.createdAt,
+  }
+  bugService.save(bug).then((savedbug) => res.send(savedbug))
+})
+
+app.put("/api/bug/:id", (req, res) => {
+  const bug = {
+    _id: req.body._id,
+    title: req.body.title,
+    description: req.body.description,
+    severity: req.body.severity,
+    createdAt: req.body.createdAt,
+  }
+  bugService.save(bug).then((savedbug) => res.send(savedbug))
+})
+
+app.delete("/api/bug/:id", (req, res) => {
   const { id: bugId } = req.params
   bugService.remove(bugId).then(() => res.send("OK"))
 })

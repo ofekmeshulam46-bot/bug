@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://127.0.0.1:3030/api/bug
+method: POST
+body:
+  type: json
+  content: " {\r
+
+    \    \"title\": \"Bug 1789567613877\",\r
+
+    \    \"description\": \"undefined  \",\r
+
+    \    \"severity\": 31,\r
+
+    \    \"createdAt\": null\r
+
+    \  }"
+order: 4146070318571232
